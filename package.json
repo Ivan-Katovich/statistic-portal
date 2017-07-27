@@ -1,0 +1,23 @@
+{
+  "name": "statistic-portal",
+  "version": "0.0.1",
+  "devDependencies": {
+    "agentkeepalive": "^3.3.0",
+    "elementtree": "^0.1.7",
+    "httpntlm": "^1.7.5",
+    "node-jsxml": "^0.9.0",
+    "node-ntlm-client": "^0.1.2",
+    "ntlm": "^0.1.3",
+    "ntlm-client": "^0.1.1",
+    "request": "^2.81.0",
+    "request-promise": "^4.2.1",
+    "smbhash": "0.0.1",
+    "tfs": "github:konsumer/tfs",
+    "vsts-api": "^1.0.0-beta6",
+    "xml2js-es6-promise": "^1.1.1"
+  },
+  "engines": {
+    "node": ">=6.9.1",
+    "npm": ">=3.10.8"
+  }
+}
