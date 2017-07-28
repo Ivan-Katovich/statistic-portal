@@ -7,7 +7,6 @@ const ntlmClient = require('node-ntlm-client');
 const xmlUtils = require('./xmlUtils');
 const helper = require('./helper');
 
-const url4 = 'http://tfs-app.vertafore.com:8080/tfs/main/Services/v3.0/LocationService.asmx';
 const url5 = 'http://tfs-app.vertafore.com:8080/tfs/Main/WorkItemTracking/v4.0/ClientService.asmx';
 const url6 = 'http://tfs-app.vertafore.com:8080/tfs/Main/TestManagement/v1.0/TestResults.asmx';
 
@@ -102,21 +101,6 @@ const requestUtils = {
             });
     },
 
-    queue: function(all){
-        return new Promise(resolve=>{
-            function next() {
-                all.splice(0,1)[0]()
-                    .then(() => {
-                        if ( all.length === 0 ) {
-                            return resolve()
-                        }
-                        next();
-                    })
-            }
-            next();
-        })
-    },
-
     requestToGetAllIdsFromArrayWithIds2: function(ids){
         let suitIdsNew = [];
         let promises = [];
@@ -133,7 +117,7 @@ const requestUtils = {
                         requestUtils.ids.tcIds = requestUtils.ids.tcIds.concat(newIds.tcIds);
                     });
                 });
-                return requestUtils.queue(promises);
+                return helper.queue(promises);
             }).catch(function(err){
                 console.log(err);
                 console.log(suitIdsNew);
@@ -185,7 +169,7 @@ const requestUtils = {
                         return Promise.all(promisesParallel);
                     });
                 });
-                return requestUtils.queue(promisesQueue);
+                return helper.queue(promisesQueue);
             })
             .then(function () {
                 if(suitIdsNew.length>0){
@@ -198,8 +182,35 @@ const requestUtils = {
                 }
             });
     },
+
+    requestWithDbCall: function(body){
+        return Promise.resolve()
+            .then(function () {
+                return rp(helper.getOptions(url6,helper.includeHeaders,requestUtils.message1));
+            })
+            .catch(function (err) {
+                console.log(err.statusCode+ ' 111');
+                let message2 = err.response.headers['www-authenticate'];
+                let decodedMessage2 = ntlmClient.decodeType2Message(message2);
+                let message3 = ntlmClient.createType3Message(decodedMessage2,'katoviiv','MoveAgain789!',undefined,'vertafore');
+                return rp(helper.getOptions(url6,helper.includeHeaders,message3,body));
+            })
+    }
 };
 
 module.exports = requestUtils;
 
 // requestUtils.requestToGetAllIdsFromArrayWithIds([29651]);
+
+// requestUtils.requestWithDbCall(xmlUtils.readXml('./mtm-integration/xmlFiles/bodyForRequestWithDbCall.xml'))
+//     .then(function (resp) {
+//         console.log(resp.data);
+//     });
+
+// requestUtils.requestSetToGetTcs(xmlUtils.readXmlByName('xmlWithIdsAndFail'))
+//     .then(function (resp) {
+//         console.log(resp.data);
+//     })
+//     .catch(function(err){
+//         // console.log(err);
+//     });

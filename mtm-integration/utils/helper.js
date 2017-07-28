@@ -30,6 +30,21 @@ const helper = {
             setTimeout(resolve, t)
         });
     },
+
+    queue: function(all){
+        return new Promise(resolve=>{
+            function next() {
+                all.splice(0,1)[0]()
+                    .then(() => {
+                        if ( all.length === 0 ) {
+                            return resolve()
+                        }
+                        next();
+                    })
+            }
+            next();
+        });
+    },
 };
 
 module.exports = helper;

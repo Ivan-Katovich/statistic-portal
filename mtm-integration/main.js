@@ -7,17 +7,25 @@ const helper = require('./utils/helper');
 const requestUtils = require('./utils/requestUtils');
 
 async function getResponseWithTcData(startIds,attributes,value){
+    let commonCounts = {
+        tcCount : 0,
+        selectedCount : 0
+    };
     let ids = await requestUtils.requestToGetAllIdsFromArrayWithIds2(startIds);
-    let xml = await xmlUtils.setIdsToTcRequest(ids,attributes);
-    let resp = await requestUtils.requestSetToGetTcs(xml);
-    console.log(resp.statusCode+' 444');
-    // console.log(resp.data);
-    let counts = await xmlUtils.getCountOfTcsWithGivenAttribute(resp.data,value);
-    console.log(counts);
-    return counts;
+    let xmlSet = await xmlUtils.setIdsToTcRequest(ids,attributes);
+    for(let i = 0;i<xmlSet.length;i++){
+        let resp = await requestUtils.requestSetToGetTcs(xmlSet[i]);
+        console.log(resp.statusCode+' 444');
+        // console.log(resp.data);
+        let counts = await xmlUtils.getCountOfTcsWithGivenAttribute(resp.data,value);
+        commonCounts.tcCount = commonCounts.tcCount + counts.tcCount;
+        commonCounts.selectedCount = commonCounts.selectedCount + counts.selectedCount;
+    }
+    console.log(commonCounts);
+    return commonCounts;
 }
 
-getResponseWithTcData([29215],['id','testType'],'Automation');
+getResponseWithTcData([4189],['id','testType'],'Automation');
 
 
 
