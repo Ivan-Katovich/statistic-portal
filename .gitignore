@@ -34,3 +34,6 @@ package-lock.json
 
 # test
 test.js
+
+# webpack files
+static
