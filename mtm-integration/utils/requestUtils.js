@@ -129,7 +129,14 @@ const requestUtils = {
                 }else{
                     console.log(requestUtils.ids.tcIds+'');
                     console.log(requestUtils.ids.tcIds.length);
-                    return requestUtils.ids.tcIds
+                    let total = requestUtils.ids.tcIds;
+                    requestUtils.ids = {
+                        tcIds: [],
+                        suitIds: []
+                    };
+                    console.log(total+'');
+                    console.log(total.length);
+                    return total;
                 }
             })
     },

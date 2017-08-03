@@ -25,7 +25,11 @@ async function getResponseWithTcData(startIds,attributes,value){
     return commonCounts;
 }
 
-getResponseWithTcData([4189],['id','testType'],'Automation');
+// getResponseWithTcData([29651],['id','testType'],'Automation');
+
+exports.getResponseWithTcData = getResponseWithTcData;
+
+// console.log(__dirname+' 111111111111');
 
 
 
