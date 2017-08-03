@@ -3,7 +3,7 @@ const fs = require('fs');
 const xml2js = require('xml2js');
 const xml2jsPromise = require('xml2js-es6-promise');
 const builder = new xml2js.Builder();
-const config = require('./../configs/config');
+const data = require('../configs/data');
 
 const xmlUtils = {
     prettyXml: function(uglyXml){
@@ -76,10 +76,10 @@ const xmlUtils = {
         }
         if(attributes){
             attributes.forEach(function (attr) {
-                attrCodes.push(config.tcAttributes[attr].c);
+                attrCodes.push(data.tcAttributes[attr].c);
             })
         }else{
-            attrCodes = [config.tcAttributes.id.c,config.tcAttributes.testType.c];
+            attrCodes = [data.tcAttributes.id.c,data.tcAttributes.testType.c];
         }
         ids200.forEach(function(idsPart){
             promises.push(xml2jsPromise(xmlUtils.readXml('./mtm-integration/xmlFiles/bodyForRequestToGetTCAttributes.xml'))

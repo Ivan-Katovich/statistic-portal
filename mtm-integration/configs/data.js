@@ -1,6 +1,6 @@
 
 
-const config = {
+const data = {
 
     tcAttributes: {
         id: {c:'System.Id',t:'System.Int32'},
@@ -16,4 +16,4 @@ const config = {
 
 };
 
-module.exports = config;
+module.exports = data;

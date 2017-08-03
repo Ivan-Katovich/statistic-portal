@@ -6,9 +6,10 @@ const rp = require('request-promise');
 const ntlmClient = require('node-ntlm-client');
 const xmlUtils = require('./xmlUtils');
 const helper = require('./helper');
+const config = require('./../../globalConfig');
 
-const url5 = 'http://tfs-app.vertafore.com:8080/tfs/Main/WorkItemTracking/v4.0/ClientService.asmx';
-const url6 = 'http://tfs-app.vertafore.com:8080/tfs/Main/TestManagement/v1.0/TestResults.asmx';
+const url5 = config.mtmInt.baseUrl+':'+config.mtmInt.port+'/tfs/Main/WorkItemTracking/v4.0/ClientService.asmx';
+const url6 = config.mtmInt.baseUrl+':'+config.mtmInt.port+'/tfs/Main/TestManagement/v1.0/TestResults.asmx';
 
 const requestUtils = {
 
@@ -23,7 +24,7 @@ const requestUtils = {
                 console.log(err.statusCode+ ' 111');
                 let message2 = err.response.headers['www-authenticate'];
                 let decodedMessage2 = ntlmClient.decodeType2Message(message2);
-                let message3 = ntlmClient.createType3Message(decodedMessage2,'katoviiv','MoveAgain789!',undefined,'vertafore');
+                let message3 = ntlmClient.createType3Message(decodedMessage2,config.mtmInt.username,config.mtmInt.password,undefined,config.mtmInt.domain);
                 return message3;
             })
     },
@@ -41,7 +42,7 @@ const requestUtils = {
                 console.log(err.statusCode+ ' 111');
                 let message2 = err.response.headers['www-authenticate'];
                 let decodedMessage2 = ntlmClient.decodeType2Message(message2);
-                let message3 = ntlmClient.createType3Message(decodedMessage2,'katoviiv','MoveAgain789!',undefined,'vertafore');
+                let message3 = ntlmClient.createType3Message(decodedMessage2,config.mtmInt.username,config.mtmInt.password,undefined,config.mtmInt.domain);
                 return rp(helper.getOptions(url6,helper.includeHeaders,message3,body));
             })
     },
@@ -55,7 +56,7 @@ const requestUtils = {
                 console.log(err.statusCode+ ' 333');
                 let message2 = err.response.headers['www-authenticate'];
                 let decodedMessage2 = ntlmClient.decodeType2Message(message2);
-                let message3 = ntlmClient.createType3Message(decodedMessage2,'katoviiv','MoveAgain789!',undefined,'vertafore');
+                let message3 = ntlmClient.createType3Message(decodedMessage2,config.mtmInt.username,config.mtmInt.password,undefined,config.mtmInt.domain);
                 return rp(helper.getOptions(url5,helper.includeHeaders,message3,body));
             })
     },
@@ -102,6 +103,9 @@ const requestUtils = {
     },
 
     requestToGetAllIdsFromArrayWithIds2: function(ids){
+        // if(ids.length === 0){
+        //     ids = [config.mtmInt.defaultSuitId];
+        // }
         let suitIdsNew = [];
         let promises = [];
         return Promise.resolve()
@@ -199,7 +203,7 @@ const requestUtils = {
                 console.log(err.statusCode+ ' 111');
                 let message2 = err.response.headers['www-authenticate'];
                 let decodedMessage2 = ntlmClient.decodeType2Message(message2);
-                let message3 = ntlmClient.createType3Message(decodedMessage2,'katoviiv','MoveAgain789!',undefined,'vertafore');
+                let message3 = ntlmClient.createType3Message(decodedMessage2,config.mtmInt.username,config.mtmInt.password,undefined,config.mtmInt.domain);
                 return rp(helper.getOptions(url6,helper.includeHeaders,message3,body));
             })
     }

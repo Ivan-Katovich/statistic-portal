@@ -4,6 +4,7 @@ require('./css/app.css');
 const rp = require('request-promise');
 const React = require('react');
 const ReactDOM = require('react-dom');
+const config = require('./../globalConfig');
 
 // window.ee = new EventEmitter();
 
@@ -28,7 +29,7 @@ let AddSuitId = React.createClass({
         this.setState({myValue: e.target.value})
     },
     onBtnClickHandler: function() {
-        let inputState = this.state.myValue || 29651;
+        let inputState = this.state.myValue || config.frontend.defaultSuitId;
         console.log(inputState);
         let options = {
             uri: 'http://localhost:3001/connector/getTcData',
