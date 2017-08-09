@@ -19,5 +19,3 @@ export let PercentageView = React.createClass({
         );
     }
 });
-
-// module.exports = PercentageView;

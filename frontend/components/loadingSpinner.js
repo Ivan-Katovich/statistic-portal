@@ -26,5 +26,3 @@ export let LoadingSpinner = React.createClass({
         );
     }
 });
-
-// module.exports = LoadingSpinner;
