@@ -1,11 +1,11 @@
-const React = require('react');
-const Loading = require('react-loading-spinner');
+import React from 'react';
+import Loading from 'react-loading-spinner';
 
 let Spinner = function(){
     return (<div className="defaultSpinner" />);
 };
 
-let LoadingSpinner = React.createClass({
+export let LoadingSpinner = React.createClass({
     render: function(){
         let customLoading = this.props.data;
         let loadingClass = customLoading ? 'loading_field' : 'loading_field none';
@@ -27,4 +27,4 @@ let LoadingSpinner = React.createClass({
     }
 });
 
-module.exports = LoadingSpinner;
+// module.exports = LoadingSpinner;

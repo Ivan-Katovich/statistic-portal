@@ -1,10 +1,7 @@
-const React = require('react');
-const Circle = require('rc-progress').Circle;
-// const PercentageCircle = require('reactjs-percentage-circle');
-// import PercentageCircleConstr from 'reactjs-percentage-circle';
-// let PercentageCircle = new PercentageCircleConstr();
+import React from 'react';
+import { Circle } from 'rc-progress'
 
-let PercentageView = React.createClass({
+export let PercentageView = React.createClass({
     render: function(){
         let percentage = this.props.data;
         return (
@@ -18,10 +15,9 @@ let PercentageView = React.createClass({
                     strokeWidth="4"
                     trailWidth="4"
                 />
-                {/*<PercentageCircle percent={percentage} color={"#3498db"} />*/}
             </div>
         );
     }
 });
 
-module.exports = PercentageView;
+// module.exports = PercentageView;

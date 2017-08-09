@@ -1,15 +1,17 @@
-require('./css/app.css');
-require('react-loading-spinner/src/css/index.css');
-require('reactjs-percentage-circle/src/style.css');
-// import css from './frontend/css/app.css';
+// require('./css/app.css');
+// require('react-loading-spinner/src/css/index.css');
+// require('reactjs-percentage-circle/src/style.css');
+import * as css from './css/app.css';
+import * as lsCss from 'react-loading-spinner/src/css/index.css';
 
-const React = require('react');
-const ReactDOM = require('react-dom');
-const InputView = require('./components/inputView');
-const PercentageView = require('./components/percentageView');
-const LoadingSpinner = require('./components/loadingSpinner');
+import React from 'react';
+import ReactDOM from 'react-dom';
+import InputView from './components/inputView';
+import { PercentageView } from './components/percentageView';
+import { LoadingSpinner } from './components/loadingSpinner';
 
-let ee = require('./components/common').ee;
+// let ee = require('./components/common').ee;
+import {ee} from './components/common'
 
 let App = React.createClass({
 

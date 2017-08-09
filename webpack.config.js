@@ -55,7 +55,7 @@ const config = {
                 ],
                 loader: "babel-loader",
                 query: {
-                    presets: ['react']
+                    presets: ['react','es2015']
                 }
             },
             {
