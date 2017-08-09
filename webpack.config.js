@@ -1,7 +1,7 @@
 const webpack = require('webpack');
 const path = require('path');
 const fs = require('fs');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+// const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 
 const config = {
@@ -48,7 +48,11 @@ const config = {
         rules: [
             {
                 test: /\.(js|jsx)?$/,
-                exclude: [/node_modules/],
+                // exclude: [/node_modules/],
+                include: [
+                    path.resolve(__dirname, "frontend"),
+                    // path.resolve(__dirname, "node_modules\\reactjs-percentage-circle\\src"),
+                ],
                 loader: "babel-loader",
                 query: {
                     presets: ['react']
@@ -56,6 +60,10 @@ const config = {
             },
             {
                 test: /\.css$/,
+                // include: [
+                //     path.resolve(__dirname, "frontend"),
+                //     path.resolve(__dirname, "node_modules\\reactjs-percentage-circle\\src"),
+                // ],
                 use: [ 'style-loader', 'css-loader' ]
             },
         ]

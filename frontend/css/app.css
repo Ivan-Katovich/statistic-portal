@@ -7,56 +7,92 @@ body {
     font-family: sans-serif;
 }
 
-p {
-    margin: 0 0 5px;
+.app {
+    /*position:absolute;*/
+    /*height: 100%;*/
+    /*width: 100%;*/
+    /*display: flex;*/
 }
 
-.article {
-    background: #FFF;
-    border: 1px solid rgba(0, 89, 181, 0.82);
-    width: 600px;
-    margin: 0 0 5px;
-    box-shadow: 2px 2px 5px -1px rgb(0, 81, 202);
-    padding: 3px 5px;
+.wait_for_loading {
+
 }
 
-.news__author {
-    text-decoration: underline;
+.input_view {
+    position:absolute;
+    /*top: 40px;*/
+    /*left: 40px;*/
+    left:20px;
+    height: 90%;
+    width: 500px;
+}
+
+.loading_field {
+    height: 40px;
+    width: 100%;
+    position: absolute;
+    top: 45%;
+    text-align: center;
+    left: 0;
+}
+
+.result_view {
+    position:absolute;
+    /*top: 100%; !*[wherever you want it]*!*/
+    /*left: 100%; !*[wherever you want it]*!*/
+    right: 20px;
+    height: 90%;
+    width: 800px;
+}
+
+.percentage_text {
+    font-size: 20pt;
+}
+
+.percent_circle {
+    /*margin: 20px 10px 20px 10px;*/
+    margin-left: 120px;
+    margin-top: 20px;
     color: #007DDC;
-}
-.news__count {
-    margin: 10px 0 0 0;
-    display: block;
+    width: 400px;
+    height: 400px;
 }
 
-.test-input {
-  margin: 0 5px 5px 0;
+
+
+.loading_text {
+    font-size: 10pt;
+    display: inline-block;
+    line-height: 2;
 }
 
-.add {
-    margin: 0 5px 5px 0;
-    width: 210px;
-    border: 1px dashed rgba(0, 89, 181, 0.82);
-    padding: 5px;
+.loading_spinner {
+    display: inline-block;
+    vertical-align: top;
 }
-.add__author, .add__text, .add__btn, .add__checkrule {
-    display: block;
-    margin: 0 0 5px 0;
-    padding: 5px;
-    width: 94%;
-    border: 1px solid rgba(0, 89, 181, 0.82);
+
+.loading {
+    height: 40px;
+    width: 40px;
 }
-.add__checkrule {
-    border: none;
-    font-size: 12px;
+
+.test_input {
+  /*margin: 20px 10px 20px 10px;*/
+    margin-left: 20px;
+    margin-top: 20px;
 }
-.add__btn {
+
+.add_btn {
+    /*margin: 20px 10px 20px 10px;*/
+    margin-left: 20px;
+    margin-top: 20px;
     box-sizing: content-box;
     color: #FFF;
     text-transform: uppercase;
     background: #007DDC;
 }
-.add__btn:disabled {
+.add_btn:disabled {
     background: #CCC;
     color: #999;
 }
+
