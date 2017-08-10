@@ -51,7 +51,7 @@ const config = {
                 // exclude: [/node_modules/],
                 include: [
                     path.resolve(__dirname, "frontend"),
-                    // path.resolve(__dirname, "node_modules\\reactjs-percentage-circle\\src"),
+                    // path.resolve(__dirname, "node_modules\\reactjs-percentage-circle"),
                 ],
                 loader: "babel-loader",
                 query: {

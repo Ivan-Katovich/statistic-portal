@@ -19,6 +19,8 @@ let App = React.createClass({
         return {
             customLoading: false,
             coveragePercentage: 0,
+            allTc: 0,
+            selectedTc: 0
         };
     },
 
@@ -28,6 +30,8 @@ let App = React.createClass({
             _this.setState({
                 customLoading: item.customLoading,
                 coveragePercentage: item.coveragePercentage,
+                allTc: item.allTc,
+                selectedTc: item.selectedTc,
             });
         });
     },
@@ -38,15 +42,9 @@ let App = React.createClass({
     render: function() {
         return (
             <div className="app">
-                <div>
-                    <InputView />
-                </div>
-                <div>
-                    <LoadingSpinner data={this.state.customLoading} />
-                </div>
-                <div>
-                    <PercentageView data={this.state.coveragePercentage} />
-                </div>
+                <InputView />
+                <LoadingSpinner data={this.state.customLoading} />
+                <PercentageView data={this.state} />
             </div>
         );
     }
