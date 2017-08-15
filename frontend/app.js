@@ -1,8 +1,8 @@
 // require('./css/app.css');
 // require('react-loading-spinner/src/css/index.css');
 // require('reactjs-percentage-circle/src/style.css');
-import * as css from './css/app.css';
-import * as lsCss from 'react-loading-spinner/src/css/index.css';
+import './css/app.css';
+import 'react-loading-spinner/src/css/index.css';
 
 import React from 'react';
 import ReactDOM from 'react-dom';

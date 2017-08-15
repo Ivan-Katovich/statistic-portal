@@ -160,14 +160,14 @@ body {
     font-weight: normal;
 }
 
-.test_input {
-    padding: 5px;
+.suite_input {
+    padding: 7px;
     border: none;
-    font-size: 20px;
+    font-size: 16px;
     box-sizing: border-box;
     border-radius: 2px;
     height: 25px;
-    width: 150px;
+    width: 200px;
     margin-top: 5px;
 }
 
@@ -176,7 +176,7 @@ body {
     bottom: 0;
     left: 0;
     border: none;
-    height: 25px;
+    height: 35px;
     width: 200px;
     font-size: 20px;
     margin-right: 300px;
@@ -191,5 +191,17 @@ body {
 .add_btn:disabled {
     background: #ccc;
     /*color: #999;*/
+}
+
+#tree {
+    background-color: darkgrey;
+    box-sizing: border-box;
+    border-radius: 2px;
+    height: 60%;
+    width: 460px;
+    margin-left: 20px;
+    margin-top: 20px;
+    overflow-y: scroll;
+    overflow-x: scroll;
 }
 

@@ -25,9 +25,27 @@ async function getResponseWithTcData(startIds,attributes,value){
     return commonCounts;
 }
 
+async function getChildrenSuits(id){
+    let suits = [];
+    let body = await xmlUtils.setSuitIdToSuitRequest(id);
+    let resp = await requestUtils.requestSetToGetSuit(body);
+    let newIds = await xmlUtils.getTcIdsFromSuitResponse(resp.data);
+    for(let i = 0;i<newIds.suitIds.length;i++){
+        let bodyForName = await xmlUtils.setSuitIdToSuitRequest(newIds.suitIds[i]);
+        console.log(resp.statusCode+' 444');
+        let respForName = await requestUtils.requestSetToGetSuit(bodyForName);
+        let suitData = await xmlUtils.getSuitTitleFromSuitResponse(respForName.data)
+        suits.push(suitData);
+    }
+    console.log(suits);
+    return suits;
+}
+
 // getResponseWithTcData([29651],['id','testType'],'Automation');
+// getChildSuits(29651);
 
 exports.getResponseWithTcData = getResponseWithTcData;
+exports.getChildrenSuits = getChildrenSuits;
 
 // console.log(__dirname+' 111111111111');
 

@@ -48,21 +48,37 @@ const xmlUtils = {
                     tcs.forEach(function(tc){
                         ids.deletedIds.push(tc.int[0]);
                     })
-                }else{
-                    tcs = result['soap:Envelope']['soap:Body'][0].FetchTestSuitesResponse[0].FetchTestSuitesResult[0].ServerTestSuite[0].ServerEntries[0].TestSuiteEntry;
-                    if(tcs){
-                        tcs.forEach(function(tc){
-                            if(result['soap:Envelope']['soap:Body'][0].FetchTestSuitesResponse[0].FetchTestSuitesResult[0].ServerTestSuite[0].ServerEntries[0].TestSuiteEntry[0].PointAssignments){
-                                ids.tcIds.push(tc.$.EntryId);
-                            }else{
-                                ids.suitIds.push(tc.$.EntryId);
-                            }
-                        });
-                    }
+                }
+                tcs = result['soap:Envelope']['soap:Body'][0].FetchTestSuitesResponse[0].FetchTestSuitesResult[0].ServerTestSuite[0].ServerEntries[0].TestSuiteEntry;
+                if(tcs){
+                    tcs.forEach(function(tc){
+                        if(tc.PointAssignments){
+                            ids.tcIds.push(tc.$.EntryId);
+                        }else{
+                            ids.suitIds.push(tc.$.EntryId);
+                        }
+                    });
                 }
                 // console.log(ids);
                 return ids;
+            })
+            .catch(function(err){
+                return {
+                    tcIds: [],
+                    suitIds: [],
+                    deletedIds: []
+                };
             });
+    },
+
+    getSuitTitleFromSuitResponse: function(xml){
+        return xml2jsPromise(xml)
+            .then(function (result) {
+                let suitData = {};
+                suitData.id = result['soap:Envelope']['soap:Body'][0].FetchTestSuitesResponse[0].FetchTestSuitesResult[0].ServerTestSuite[0].$.Id;
+                suitData.title = result['soap:Envelope']['soap:Body'][0].FetchTestSuitesResponse[0].FetchTestSuitesResult[0].ServerTestSuite[0].$.Title;
+                return suitData;
+            })
     },
 
     setIdsToTcRequest: function(ids,attributes){
@@ -124,6 +140,8 @@ const xmlUtils = {
 };
 
 module.exports = xmlUtils;
+
+// xmlUtils.getSuitTitleFromSuitResponse(xmlUtils.readXml('./mtm-integration/xmlFiles/responseWithSuitsIds.xml'));
 
 // xmlUtils.setSuitIdToSuitRequest(30146);
 

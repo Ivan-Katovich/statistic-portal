@@ -1,6 +1,5 @@
 import React from 'react';
 import { Circle } from 'rc-progress';
-// import PercentageCircle from 'reactjs-percentage-circle';
 
 export let PercentageView = React.createClass({
     render: function(){
@@ -29,6 +28,7 @@ export let PercentageView = React.createClass({
                 </div>
                 <div id="statistic_board">
                     <table>
+                        <tbody>
                         <tr>
                             <td className="description_td">
                                 <b className="field_title">All:</b>
@@ -62,6 +62,7 @@ export let PercentageView = React.createClass({
                                 <b className="field_title">{allTc-selectedTc}</b>
                             </td>
                         </tr>
+                        </tbody>
                     </table>
                 </div>
             </div>

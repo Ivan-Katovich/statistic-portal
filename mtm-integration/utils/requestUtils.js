@@ -43,7 +43,7 @@ const requestUtils = {
                 let message2 = err.response.headers['www-authenticate'];
                 let decodedMessage2 = ntlmClient.decodeType2Message(message2);
                 let message3 = ntlmClient.createType3Message(decodedMessage2,config.mtmInt.username,config.mtmInt.password,undefined,config.mtmInt.domain);
-                return rp(helper.getOptions(url6,helper.includeHeaders,message3,body));
+                return rp(helper.getOptions(url6,helper.includeHeaders,message3,body))
             })
     },
 
@@ -66,46 +66,7 @@ const requestUtils = {
         suitIds: []
     },
 
-    requestToGetAllIdsFromArrayWithIds: function(ids){
-        let suitIdsNew = [];
-        let promises = [];
-        return Promise.resolve()
-            .then(function () {
-                ids.forEach(function(id){
-                    promises.push(async function(){
-                        let body = await xmlUtils.setSuitIdToSuitRequest(id);
-                        let resp = await requestUtils.requestSetToGetSuit(body);
-                        console.log(message1);
-                        // let xml = await xmlUtils.prettyXml(resp.data);
-                        // console.log(xml+' !!!!!!!!!!!!!');
-                        let newIds = await xmlUtils.getTcIdsFromSuitResponse(resp.data);
-                        newIds.suitIds.forEach(function(s){
-                            suitIdsNew.push(s);
-                        });
-                        newIds.tcIds.forEach(function (t) {
-                            requestUtils.ids.tcIds.push(t);
-                        });
-                    }());
-                });
-                // console.log(promises.length);
-                return Promise.all(promises);
-            })
-            .then(function () {
-                if(suitIdsNew.length>0){
-                    console.log(suitIdsNew+'');
-                    return requestUtils.requestToGetAllIdsFromArrayWithIds(suitIdsNew)
-                }else{
-                    console.log(requestUtils.ids.tcIds+'');
-                    console.log(requestUtils.ids.tcIds.length);
-                    return requestUtils.ids.tcIds;
-                }
-            });
-    },
-
     requestToGetAllIdsFromArrayWithIds2: function(ids){
-        // if(ids.length === 0){
-        //     ids = [config.mtmInt.defaultSuitId];
-        // }
         let suitIdsNew = [];
         let promises = [];
         return Promise.resolve()
@@ -114,17 +75,12 @@ const requestUtils = {
                     promises.push(async function(){
                         let body = await xmlUtils.setSuitIdToSuitRequest(id);
                         let resp = await requestUtils.requestSetToGetSuit(body);
-                        // let xml = await xmlUtils.prettyXml(resp.data);
-                        // console.log(xml);
                         let newIds = await xmlUtils.getTcIdsFromSuitResponse(resp.data);
                         suitIdsNew = suitIdsNew.concat(newIds.suitIds);
                         requestUtils.ids.tcIds = requestUtils.ids.tcIds.concat(newIds.tcIds);
                     });
                 });
                 return helper.queue(promises);
-            }).catch(function(err){
-                console.log(err);
-                console.log(suitIdsNew);
             })
             .then(function () {
                 if(suitIdsNew.length>0){
@@ -143,55 +99,6 @@ const requestUtils = {
                     return total;
                 }
             })
-    },
-
-    requestToGetAllIdsFromArrayWithIds3: function(ids){
-        let suitIdsNew = [];
-        let promisesQueue = [];
-        let dividedIds = [];
-        let idPart = [];
-        ids.forEach(function(id,n,a){
-            if(idPart.length<2){
-                idPart.push(id);
-            }else{
-                dividedIds.push(idPart);
-                idPart = [];
-            }
-            if(n === a.length-1){
-                dividedIds.push(idPart);
-            }
-        });
-        console.log(dividedIds);
-        return Promise.resolve()
-            .then(function () {
-                dividedIds.forEach(function(idSet){
-                    promisesQueue.push(function(){
-                        let promisesParallel = [];
-                        idSet.forEach(function(id){
-                            promisesParallel.push(async function(){
-                                let body = await xmlUtils.setSuitIdToSuitRequest(id);
-                                let resp = await requestUtils.requestSetToGetSuit(body);
-                                console.log(resp.statusCode+' 222');
-                                let newIds = await xmlUtils.getTcIdsFromSuitResponse(resp.data);
-                                suitIdsNew = suitIdsNew.concat(newIds.suitIds);
-                                requestUtils.ids.tcIds = requestUtils.ids.tcIds.concat(newIds.tcIds);
-                            }());
-                        });
-                        return Promise.all(promisesParallel);
-                    });
-                });
-                return helper.queue(promisesQueue);
-            })
-            .then(function () {
-                if(suitIdsNew.length>0){
-                    console.log(suitIdsNew+'');
-                    return requestUtils.requestToGetAllIdsFromArrayWithIds3(suitIdsNew)
-                }else{
-                    console.log(requestUtils.ids.tcIds+'');
-                    console.log(requestUtils.ids.tcIds.length);
-                    return requestUtils.ids.tcIds;
-                }
-            });
     },
 
     requestWithDbCall: function(body){
@@ -224,4 +131,16 @@ module.exports = requestUtils;
 //     })
 //     .catch(function(err){
 //         // console.log(err);
+//     });
+
+// xmlUtils.setSuitIdToSuitRequest('5')
+//     .then(function (body) {
+//         console.log(body);
+//         return requestUtils.requestSetToGetSuit(body)
+//     })
+//     .then(function (resp) {
+//         return xmlUtils.getTcIdsFromSuitResponse(resp.data);
+//     })
+//     .then(function (ids) {
+//         console.log(ids);
 //     });

@@ -20,3 +20,4 @@ app.listen(app.get('port'), function() {
 let bodyStringParser = bodyParser.text({type: '*/*'});
 
 app.post('/connector/getTcData', bodyStringParser, connector.getTcData);
+app.post('/connector/getSuitChildrenData', bodyStringParser, connector.getSuitChildrenData);

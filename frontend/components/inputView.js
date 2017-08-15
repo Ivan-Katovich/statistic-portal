@@ -1,15 +1,15 @@
-const rp = require('request-promise');
-const React = require('react');
-const config = require('./../../globalConfig');
-let ee = require('./common').ee;
-// const PercentageCircle = require('react-native-percentage-circle');
+// import 'rc-tree/assets/index.css';
 
-// window.ee = new EventEmitter();
+import rp from 'request-promise';
+import React from 'react';
+import SuitsTree from './suitsTree';
+import config from './../../globalConfig';
+import {ee} from './common';
 
 let InputView = React.createClass({
     getInitialState: function() {
         return {
-            suitId: '',
+            suitIds: [],
             customLoading: false,
             coveragePercentage: 0,
             isInputEmpty: true,
@@ -18,25 +18,39 @@ let InputView = React.createClass({
             otherTc: 0,
         };
     },
+
+    componentDidMount: function() {
+        let _this = this;
+        let isAnyNodeChecked;
+        ee.addListener('ids.add', function(item) {
+            isAnyNodeChecked = item.length>0;
+            _this.setState({
+                suitIds: item,
+                isInputEmpty: !isAnyNodeChecked,
+            });
+        });
+    },
+    componentWillUnmount: function() {
+        ee.removeListener('ids.add');
+    },
+
     onChangeHandler: function(e) {
-        // let inputData =  ReactDOM.findDOMNode(this.refs.input_data).props.data;
-        // console.log(inputData);
         if (e.target.value.trim().length > 0) {
             this.setState({isInputEmpty: false})
         } else {
             this.setState({isInputEmpty: true})
         }
-        this.setState({suitId: e.target.value})
+        this.setState({suitIds: e.target.value.split(',')})
     },
     onBtnClickHandler: function(e) {
         e.preventDefault();
         let _this = this;
-        let inputState = _this.state.suitId || config.frontend.defaultSuitId;
+        let inputState = _this.state.suitIds || [config.frontend.defaultSuitId];
         console.log(inputState);
         let options = {
             uri: config.frontend.baseUrl+':'+config.frontend.port+'/connector/getTcData',
             method: 'POST',
-            body: {suiteId: inputState},
+            body: {suiteIds: inputState},
             json: true
         };
         _this.setState({
@@ -69,8 +83,14 @@ let InputView = React.createClass({
             })
             .catch(function(err){
                 console.log(err);
+                ee.emit('percentage.add',_this.state);
             })
     },
+
+    onExpandTree: function(){
+
+    },
+
     render: function() {
         return (
             <div className="input_view" data={this.state} ref="input_data">
@@ -80,14 +100,14 @@ let InputView = React.createClass({
                     </p>
                 </div>
                 <div className="field">
-                    <b className="field_title">Enter suit ID</b>
+                    <b className="field_title">Enter suit IDs</b>
                     <input
-                        className='test_input'
-                        value={this.state.suitId}
+                        className='suite_input'
+                        value={this.state.suitIds}
                         onChange={this.onChangeHandler}
-                        // placeholder=' add suit id'
                     />
                 </div>
+                <SuitsTree />
                 <button
                     className='add_btn'
                     disabled={this.state.isInputEmpty}
