@@ -77,7 +77,7 @@ let SuitsTree = React.createClass({
     componentDidMount() {
         this.setState({
             treeData: [
-                { id: '4189', title: 'ImageRight Current Release', key:'0-0' }
+                { id: config.frontend.parentSuiteId, title: config.frontend.parentSuiteTitle, key:'0-0' }
             ],
         });
     },

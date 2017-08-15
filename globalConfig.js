@@ -11,6 +11,8 @@ const globalConfig = {
         baseUrl: 'http://localhost',
         port: 3001,
         defaultSuitId: 29651,
+        parentSuiteTitle: 'ImageRight Current Release',
+        parentSuiteId: '4189',
     }
 };
 
