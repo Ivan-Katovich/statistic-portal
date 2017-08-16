@@ -14,6 +14,36 @@ Array.prototype.remove = function(value){
     })
 };
 
+let getCorrectCheckedNodes = function(checkedNodes){
+    for(let i = 0;i<checkedNodes.length;){
+        let change = true;
+        for(let n = 0;n<checkedNodes.length;n+=1){
+            // console.log(i+' ---- '+n);
+            // console.log(checkedNodes[i].key+'  '+i+' ---- '+checkedNodes[n].key+'  '+n);
+            if(checkedNodes[i].key !== checkedNodes[n].key){
+                if((checkedNodes[i].key.indexOf(checkedNodes[n].key) === 0 || checkedNodes[n].key.indexOf(checkedNodes[i].key) === 0) &&
+                    checkedNodes[n].key.split('-').length !== checkedNodes[i].key.split('-').length){
+                    if(checkedNodes[n].key.length>checkedNodes[i].key.length){
+                        // console.log('removed n '+checkedNodes[n].key);
+                        checkedNodes.splice(n,1);
+                        n=n-1;
+                    }
+                    if(checkedNodes[n].key.length<checkedNodes[i].key.length){
+                        // console.log('removed i '+checkedNodes[i].key);
+                        checkedNodes.splice(i,1);
+                        change = false;
+                    }
+                }
+            }
+        }
+        if(change){
+            i+=1;
+        }
+    }
+
+    return checkedNodes;
+};
+
 let getNewTreeData = function(treeData, curKey, curId, child){
     const loop = (data) => {
         data.forEach((item)=>{
@@ -83,17 +113,34 @@ let SuitsTree = React.createClass({
     },
 
     onCheckHandler: function(checkedKeys,e){
-        let _this = this;
-        let ids = _this.state.ids;
-        if(ids.includes(e.node.props.id)){
-            ids.remove(e.node.props.id)
-        }else{
-            ids.push(e.node.props.id);
-        }
-        _this.setState({
-            ids:ids,
-        });
-        return ee.emit('ids.add',_this.state.ids);
+        let _this=this;
+        Promise.resolve()
+            .then(function () {
+                return _this.setState({ids:[]});
+            })
+            .then(function () {
+                let ids = _this.state.ids;
+                let checkedNodes = getCorrectCheckedNodes(e.checkedNodes);
+                checkedNodes.forEach((node)=>{
+                    ids.push(node.props.id);
+                });
+                return ids;
+            })
+            .then(function (newIds) {
+                return _this.setState({ids:newIds});
+            })
+            .then(function () {
+                ee.emit('ids.add',_this.state.ids);
+            })
+        // if(ids.includes(e.node.props.id && e.checked)){
+        //
+        // }else if(ids.includes(e.node.props.id) && !e.checked){
+        //     ids.remove(e.node.props.id)
+        // }else if(!ids.includes(e.node.props.id) && e.checked){
+        //     ids.push(e.node.props.id);
+        // }else if(!ids.includes(e.node.props.id) && !e.checked){
+        //
+        // }
     },
 
     onLoadData: function(treeNode){

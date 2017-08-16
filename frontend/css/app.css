@@ -95,6 +95,22 @@ body {
     right: 0;
 }
 
+#smile {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 300px;
+    width: 300px;
+}
+
+#smile>img {
+    height: 150px;
+    width: 150px;
+    position: absolute;
+    top: 75px;
+    left: 50px;
+}
+
 #statistic_board table {
     position: absolute;
     left: 30px;

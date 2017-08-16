@@ -6,6 +6,36 @@ export let PercentageView = React.createClass({
         let percentage = this.props.data.coveragePercentage;
         let allTc = this.props.data.allTc;
         let selectedTc = this.props.data.selectedTc;
+        let smilePath;
+        let smileClass;
+        (function(){
+            switch(true){
+                case selectedTc === 0 || percentage === 0:
+                    smilePath = "./frontend/img/smile-5.png";
+                    smileClass = 'none';
+                    break;
+                case percentage<=25:
+                    smilePath = "./frontend/img/smile-5.png";
+                    smileClass = '';
+                    break;
+                case percentage>25 && percentage<=40:
+                    smilePath = "./frontend/img/smile-4.png";
+                    smileClass = '';
+                    break;
+                case percentage>40 && percentage<=55:
+                    smilePath = "./frontend/img/smile-3.png";
+                    smileClass = '';
+                    break;
+                case percentage>55 && percentage<=75:
+                    smilePath = "./frontend/img/smile-2.png";
+                    smileClass = '';
+                    break;
+                case percentage>75:
+                    smilePath = "./frontend/img/smile-1.png";
+                    smileClass = '';
+                    break;
+            }
+        })();
         return (
             <div className="result_view">
                 <div className="header">
@@ -27,6 +57,9 @@ export let PercentageView = React.createClass({
                     />
                 </div>
                 <div id="statistic_board">
+                    <div className={smileClass} id="smile">
+                        <img src={smilePath}/>
+                    </div>
                     <table>
                         <tbody>
                         <tr>
