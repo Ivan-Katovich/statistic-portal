@@ -11,27 +11,27 @@ export let PercentageView = React.createClass({
         (function(){
             switch(true){
                 case selectedTc === 0 || percentage === 0:
-                    smilePath = "./frontend/img/smile-5.jpg";
+                    smilePath = "http://i66.tinypic.com/nodjbl.jpg";
                     smileClass = 'none';
                     break;
                 case percentage<=25:
-                    smilePath = "./frontend/img/smile-5.jpg";
+                    smilePath = "http://i66.tinypic.com/nodjbl.jpg";
                     smileClass = '';
                     break;
                 case percentage>25 && percentage<=40:
-                    smilePath = "./frontend/img/smile-4.jpg";
+                    smilePath = "http://i65.tinypic.com/j14jk7.jpg";
                     smileClass = '';
                     break;
                 case percentage>40 && percentage<=55:
-                    smilePath = "./frontend/img/smile-3.jpg";
+                    smilePath = "http://i68.tinypic.com/mkvths.jpg";
                     smileClass = '';
                     break;
                 case percentage>55 && percentage<=75:
-                    smilePath = "./frontend/img/smile-2.jpg";
+                    smilePath = "http://i63.tinypic.com/ae4npd.jpg";
                     smileClass = '';
                     break;
                 case percentage>75:
-                    smilePath = "./frontend/img/smile-1.jpg";
+                    smilePath = "http://i67.tinypic.com/301hycg.jpg";
                     smileClass = '';
                     break;
             }
