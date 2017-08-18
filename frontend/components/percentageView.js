@@ -11,27 +11,31 @@ export let PercentageView = React.createClass({
         (function(){
             switch(true){
                 case selectedTc === 0 || percentage === 0:
-                    smilePath = "http://i66.tinypic.com/nodjbl.jpg";
-                    smileClass = 'none';
+                    smilePath = "//c1.staticflickr.com/5/4361/36648396245_9460de2c9c.jpg";
+                    if(allTc === 0){
+                        smileClass = 'none';
+                    }else{
+                        smileClass = '';
+                    }
                     break;
                 case percentage<=25:
-                    smilePath = "http://i66.tinypic.com/nodjbl.jpg";
+                    smilePath = "//c1.staticflickr.com/5/4361/36648396245_9460de2c9c.jpg";
                     smileClass = '';
                     break;
                 case percentage>25 && percentage<=40:
-                    smilePath = "http://i65.tinypic.com/j14jk7.jpg";
+                    smilePath = "//c1.staticflickr.com/5/4438/36648396375_36de6ded14.jpg";
                     smileClass = '';
                     break;
                 case percentage>40 && percentage<=55:
-                    smilePath = "http://i68.tinypic.com/mkvths.jpg";
+                    smilePath = "//c1.staticflickr.com/5/4352/36648396695_38608f140d.jpg";
                     smileClass = '';
                     break;
                 case percentage>55 && percentage<=75:
-                    smilePath = "http://i63.tinypic.com/ae4npd.jpg";
+                    smilePath = "//c1.staticflickr.com/5/4373/36648396985_7b66d463b4.jpg";
                     smileClass = '';
                     break;
                 case percentage>75:
-                    smilePath = "http://i67.tinypic.com/301hycg.jpg";
+                    smilePath = "//c1.staticflickr.com/5/4404/35839242773_2f1044f97e.jpg";
                     smileClass = '';
                     break;
             }
