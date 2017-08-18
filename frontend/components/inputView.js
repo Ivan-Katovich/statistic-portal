@@ -24,7 +24,7 @@ let InputView = React.createClass({
             uri: config.frontend.baseUrl+':'+config.frontend.port+'/connector/cleanStore',
             method: 'POST'
         };
-        rp(options)
+        return rp(options)
             .then(function (res) {
                 if(!res){
                     throw new Error('Store was not cleaned');
@@ -74,7 +74,7 @@ let InputView = React.createClass({
         });
         // console.log(_this.state);
         ee.emit('percentage.add',_this.state);
-        Promise.resolve()
+        return Promise.resolve()
             .then(function () {
                 return _this.setState({
                     customLoading: true
