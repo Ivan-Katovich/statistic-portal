@@ -21,3 +21,4 @@ let bodyStringParser = bodyParser.text({type: '*/*'});
 
 app.post('/connector/getTcData', bodyStringParser, connector.getTcData);
 app.post('/connector/getSuitChildrenData', bodyStringParser, connector.getSuitChildrenData);
+app.post('/connector/cleanStore', connector.storeCleaner);

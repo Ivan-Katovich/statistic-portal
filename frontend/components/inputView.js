@@ -19,6 +19,22 @@ let InputView = React.createClass({
         };
     },
 
+    clearStore: function(){
+        let options = {
+            uri: config.frontend.baseUrl+':'+config.frontend.port+'/connector/cleanStore',
+            method: 'POST'
+        };
+        rp(options)
+            .then(function (res) {
+                if(!res){
+                    throw new Error('Store was not cleaned');
+                }
+            })
+            .catch(function(err){
+                throw new Error(err);
+            });
+    },
+
     componentDidMount: function() {
         let _this = this;
         let isAnyNodeChecked;
@@ -72,7 +88,6 @@ let InputView = React.createClass({
                 return rp(options);
             })
             .then(function (res) {
-                console.log(_this.state);
                 _this.setState({
                     customLoading: false,
                     coveragePercentage: (res.selectedCount*100/res.tcCount).toFixed(2),
@@ -83,6 +98,9 @@ let InputView = React.createClass({
             })
             .catch(function(err){
                 console.log(err);
+                _this.setState({
+                    customLoading: false,
+                });
                 ee.emit('percentage.add',_this.state);
             })
     },
@@ -102,6 +120,7 @@ let InputView = React.createClass({
                 <div className="field">
                     <b className="field_title">Enter suit IDs</b>
                     <input
+                        // onLoad={this.clearStore}
                         className='suite_input'
                         value={this.state.suitIds}
                         onChange={this.onChangeHandler}
@@ -113,6 +132,11 @@ let InputView = React.createClass({
                     disabled={this.state.isInputEmpty}
                     onClick={this.onBtnClickHandler}>
                     Show coverage
+                </button>
+                <button
+                    className='reset_btn'
+                    onClick={this.clearStore}>
+                    Reset store
                 </button>
             </div>
         );

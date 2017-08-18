@@ -195,8 +195,8 @@ body {
     height: 35px;
     width: 200px;
     font-size: 20px;
-    margin-right: 300px;
     margin-left: 20px;
+    margin-right: 20px;
     margin-bottom: 50px;
     box-sizing: border-box;
     border-radius: 2px;
@@ -207,6 +207,22 @@ body {
 .add_btn:disabled {
     background: #ccc;
     /*color: #999;*/
+}
+.reset_btn {
+    position: absolute;
+    bottom: 0;
+    left: 220px;
+    border: none;
+    height: 35px;
+    width: 150px;
+    font-size: 20px;
+    margin-left: 20px;
+    margin-bottom: 50px;
+    box-sizing: border-box;
+    border-radius: 2px;
+    color: #FFF;
+    /*text-transform: uppercase;*/
+    background: rgba(0, 0, 0, 0.28);
 }
 
 #tree {

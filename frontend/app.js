@@ -41,7 +41,7 @@ let App = React.createClass({
 
     render: function() {
         return (
-            <div className="app">
+            <div className="app" >
                 <InputView />
                 <LoadingSpinner data={this.state.customLoading} />
                 <PercentageView data={this.state} />

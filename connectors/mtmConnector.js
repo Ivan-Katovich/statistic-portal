@@ -1,19 +1,25 @@
 
 const integrator = require('../mtm-integration/main');
+let mtmStore = require('../store/mtmStore');
 
 exports.getTcData = function(req,res){
     let body = JSON.parse(req.body);
     console.log(body.suiteIds);
-    integrator.getResponseWithTcData(body.suiteIds,['id','testType'],'Automation')
-        .then(function (data) {
-            let result = JSON.stringify(data);
-            res.send(result);
-            res.end();
-        })
-        .catch(function(err){
-            res.send({tcCount: 0, selectedCount: 0});
-            res.end();
-        });
+    if(mtmStore.coverage[body.suiteIds]){
+        res.send(mtmStore.coverage[body.suiteIds]);
+    }else{
+        integrator.getResponseWithTcData(body.suiteIds,['id','testType'],'Automation')
+            .then(function (data) {
+                let result = JSON.stringify(data);
+                mtmStore.coverage[body.suiteIds] = result;
+                res.send(result);
+                res.end();
+            })
+            .catch(function(err){
+                res.send({tcCount: 0, selectedCount: 0});
+                res.end();
+            });
+    }
 };
 
 exports.getSuitChildrenData = function(req,res){
@@ -25,4 +31,11 @@ exports.getSuitChildrenData = function(req,res){
             res.send(result);
             res.end();
         })
+};
+
+exports.storeCleaner = function(req,res){
+    mtmStore = {
+        coverage:{}
+    };
+    res.send(true);
 };
