@@ -120,7 +120,6 @@ let InputView = React.createClass({
                 <div className="field">
                     <b className="field_title">Enter suit IDs</b>
                     <input
-                        // onLoad={this.clearStore}
                         className='suite_input'
                         value={this.state.suitIds}
                         onChange={this.onChangeHandler}
