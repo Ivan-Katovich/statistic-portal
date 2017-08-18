@@ -25,17 +25,23 @@ exports.getTcData = function(req,res){
 exports.getSuitChildrenData = function(req,res){
     let body = JSON.parse(req.body);
     console.log(body.suiteId);
-    integrator.getChildrenSuits(body.suiteId)
-        .then(function (suits) {
-            let result = JSON.stringify(suits);
-            res.send(result);
-            res.end();
-        })
+    if(mtmStore.suits[body.suiteId]){
+        res.send(mtmStore.suits[body.suiteId]);
+    }else{
+        integrator.getChildrenSuits(body.suiteId)
+            .then(function (suits) {
+                let result = JSON.stringify(suits);
+                mtmStore.suits[body.suiteId] = result;
+                res.send(result);
+                res.end();
+            })
+    }
 };
 
 exports.storeCleaner = function(req,res){
     mtmStore = {
-        coverage:{}
+        coverage:{},
+        suits:{}
     };
     res.send(true);
 };

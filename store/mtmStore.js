@@ -1,6 +1,7 @@
 
 const mtmStore = {
-    coverage:{}
+    coverage:{},
+    suits:{}
 };
 
 module.exports = mtmStore;
