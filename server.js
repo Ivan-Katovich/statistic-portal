@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const connector = require('./connectors/mtmConnector');
+const queue = require('express-queue');
 const config = require('./globalConfig');
 
 const app = express();
@@ -8,6 +9,7 @@ const app = express();
 app.set('port', (process.env.PORT || config.frontend.port));
 
 app.use('/', express.static(__dirname));
+app.use(queue({ activeLimit: 1 }));
 
 app.get('/',function(req,res){
     res.sendFile(__dirname+'/index.html');

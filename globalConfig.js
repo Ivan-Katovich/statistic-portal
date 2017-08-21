@@ -8,7 +8,7 @@ const globalConfig = {
         // defaultSuitId: 29651,
     },
     frontend: {
-        baseUrl: 'http://localhost',
+        baseUrl: 'http://epbyminw4373.minsk.epam.com',
         port: 3001,
         defaultSuitId: 29651,
         parentSuiteTitle: 'ImageRight Current Release',
