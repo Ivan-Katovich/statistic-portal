@@ -145,7 +145,7 @@ let InputView = React.createClass({
         });
 
         paramOptions = tcData[this.state.attribute].values.map(function(item,index){
-            let selected = item === tcData[_this.state.attribute].default;
+            let selected = item === tcData[_this.state.attribute].default ? 'selected' : '';
             return (
                 <option selected={selected} key={index} value={item}>{item}</option>
             )

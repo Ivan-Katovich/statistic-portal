@@ -168,13 +168,14 @@ let SuitsTree = React.createClass({
 
         const loop = (data) => {
             return data.map((item) => {
+                let disableCb = item.id === '4189';
                 if (item.children) {
                     return (
-                        <TreeNode title={item.title} id={item.id} key={item.key}>{loop(item.children)}</TreeNode>
+                        <TreeNode disableCheckbox={disableCb} title={item.title} id={item.id} key={item.key}>{loop(item.children)}</TreeNode>
                     );
                 }else{
                     return (
-                        <TreeNode title={item.title} id={item.id} key={item.key}/>
+                        <TreeNode disableCheckbox={disableCb} title={item.title} id={item.id} key={item.key}/>
                     );
                 }
             });
