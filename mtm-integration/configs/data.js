@@ -11,7 +11,8 @@ const data = {
         title: {c:'System.Title',t:'System.String'},
         priority: {c:'Microsoft.VSTS.Common.Priority',t:'System.Int32'},
         testType: {c:'Vertafore.TestType',t:'System.String'},
-        automationStatus: {c:'Microsoft.VSTS.TCM.AutomationStatus',t:'System.String'}
+        automationStatus: {c:'Microsoft.VSTS.TCM.AutomationStatus',t:'System.String'},
+        assignedTo: {c:'System.AssignedTo',t:'System.String'},
     }
 
 };

@@ -5,10 +5,13 @@ import React from 'react';
 import SuitsTree from './suitsTree';
 import config from './../../globalConfig';
 import {ee} from './common';
+import {tcData} from './../configs/attributesAndParameters';
 
 let InputView = React.createClass({
     getInitialState: function() {
         return {
+            attribute: 'Test type',
+            parameter: 'Automation',
             suitIds: [],
             customLoading: false,
             coveragePercentage: 0,
@@ -50,6 +53,17 @@ let InputView = React.createClass({
         ee.removeListener('ids.add');
     },
 
+    onAttributeChange: function(e){
+        this.setState({
+            attribute:e.target.value,
+            parameter:tcData[e.target.value].default
+        });
+    },
+
+    onParameterChange: function(e){
+        this.setState({parameter:e.target.value});
+    },
+
     onChangeHandler: function(e) {
         if (e.target.value.trim().length > 0) {
             this.setState({isInputEmpty: false})
@@ -66,7 +80,11 @@ let InputView = React.createClass({
         let options = {
             uri: config.frontend.baseUrl+':'+config.frontend.port+'/connector/getTcData',
             method: 'POST',
-            body: {suiteIds: inputState},
+            body: {
+                suiteIds: inputState,
+                attribute: tcData[_this.state.attribute].shortName,
+                parameter: _this.state.parameter
+            },
             json: true
         };
         _this.setState({
@@ -110,6 +128,29 @@ let InputView = React.createClass({
     },
 
     render: function() {
+
+        const _this = this;
+        let attrDataArray = [];
+        let attrOptions;
+        let paramOptions;
+        for(let prop in tcData){
+            if(tcData.hasOwnProperty(prop)){
+                attrDataArray.push(tcData[prop]);
+            }
+        }
+        attrOptions = attrDataArray.map(function(item, index) {
+            return (
+                <option key={index} value={item.longName}>{item.longName}</option>
+            )
+        });
+
+        paramOptions = tcData[this.state.attribute].values.map(function(item,index){
+            let selected = item === tcData[_this.state.attribute].default;
+            return (
+                <option selected={selected} key={index} value={item}>{item}</option>
+            )
+        });
+
         return (
             <div className="input_view" data={this.state} ref="input_data">
                 <div className="header">
@@ -117,13 +158,31 @@ let InputView = React.createClass({
                         <strong>Select suit</strong>
                     </p>
                 </div>
+                {/*<div className="field">*/}
+                    {/*<b className="field_title">Enter suit IDs</b>*/}
+                    {/*<input*/}
+                        {/*className='suite_input'*/}
+                        {/*value={this.state.suitIds}*/}
+                        {/*onChange={this.onChangeHandler}*/}
+                    {/*/>*/}
+                {/*</div>*/}
                 <div className="field">
-                    <b className="field_title">Enter suit IDs</b>
-                    <input
-                        className='suite_input'
-                        value={this.state.suitIds}
-                        onChange={this.onChangeHandler}
-                    />
+                    <div className="first_dd">
+                        <b className="field_title">Select attribute</b>
+                        <select className="field_dropdown"
+                                defaultValue={this.state.attribute}
+                                onChange={this.onAttributeChange}>
+                            {attrOptions}
+                        </select>
+                    </div>
+                    <div className="second_dd">
+                        <b className="field_title">Select parameter</b>
+                        <select className="field_dropdown"
+                                // defaultValue={tcData[this.state.attribute].default}
+                                onChange={this.onParameterChange}>
+                            {paramOptions}
+                        </select>
+                    </div>
                 </div>
                 <SuitsTree />
                 <button

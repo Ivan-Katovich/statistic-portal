@@ -2,16 +2,30 @@
 const integrator = require('../mtm-integration/main');
 let mtmStore = require('../store/mtmStore');
 
+function nameSpace(parent,str){
+    let parts = str.split('.');
+    for (let i = 0; i<parts.length; i+=1){
+        if (typeof parent[parts[i]] === "undefined") {
+            parent[parts[i]] = {};
+        }
+        parent = parent[parts[i]];
+    }
+    return parent;
+}
+
 exports.getTcData = function(req,res){
     let body = JSON.parse(req.body);
-    console.log(body.suiteIds);
-    if(mtmStore.coverage[body.suiteIds]){
-        res.send(mtmStore.coverage[body.suiteIds]);
+    console.log(body.attribute+' ++++++++++++');
+    console.log(body.parameter+' ------------');
+    let parent = nameSpace(mtmStore.coverage,body.attribute+'.'+body.parameter);
+    console.log(parent);
+    if(parent[body.suiteIds]){
+        res.send(parent[body.suiteIds]);
     }else{
-        integrator.getResponseWithTcData(body.suiteIds,['id','testType'],'Automation')
+        integrator.getResponseWithTcData(body.suiteIds,['id',body.attribute],body.parameter)
             .then(function (data) {
                 let result = JSON.stringify(data);
-                mtmStore.coverage[body.suiteIds] = result;
+                parent[body.suiteIds] = result;
                 res.send(result);
                 res.end();
             })

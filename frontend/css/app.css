@@ -166,25 +166,51 @@ body {
 }
 
 .field {
-    margin-right: 300px;
+    height: 80px;
+    width: 100%;
     font-size: 20px;
-    margin-left: 20px;
-    margin-top: 30px;
+    position: absolute;
 }
 
 .field_title {
+    position: absolute;
+    top: 10px;
+    font-weight: normal;
+    margin-left: 20px;
+}
+
+.statistic_data {
     font-weight: normal;
 }
 
-.suite_input {
-    padding: 7px;
+.field_dropdown {
+    position: absolute;
+    top: 35px;
+    margin-left: 20px;
+    padding-left: 7px;
     border: none;
     font-size: 16px;
     box-sizing: border-box;
     border-radius: 2px;
-    height: 25px;
+    height: 30px;
     width: 200px;
     margin-top: 5px;
+}
+
+.first_dd {
+    height: 100%;
+    width: 50%;
+    position: absolute;
+    left: 0;
+    top: 0;
+
+}
+.second_dd {
+    height: 100%;
+    width: 50%;
+    position: absolute;
+    left: 50%;
+    top: 0;
 }
 
 .add_btn {
@@ -226,6 +252,8 @@ body {
 }
 
 #tree {
+    position: absolute;
+    top: 130px;
     background-color: darkgrey;
     box-sizing: border-box;
     border-radius: 2px;

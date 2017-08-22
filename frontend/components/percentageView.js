@@ -68,35 +68,35 @@ export let PercentageView = React.createClass({
                         <tbody>
                         <tr>
                             <td className="description_td">
-                                <b className="field_title">All:</b>
+                                <b className="statistic_data">All:</b>
                             </td>
                             <td className="color_td">
                                 <div id="all" className="shape" />
                             </td>
                             <td className="amount_td">
-                                <b className="field_title">{allTc}</b>
+                                <b className="statistic_data">{allTc}</b>
                             </td>
                         </tr>
                         <tr>
                             <td className="description_td">
-                                <b className="field_title">Automation:</b>
+                                <b className="statistic_data">Automation:</b>
                             </td>
                             <td className="color_td">
                                 <div id="auto" className="shape" />
                             </td>
                             <td className="amount_td">
-                                <b className="field_title">{selectedTc}</b>
+                                <b className="statistic_data">{selectedTc}</b>
                             </td>
                         </tr>
                         <tr>
                             <td className="description_td">
-                                <b className="field_title">Functional:</b>
+                                <b className="statistic_data">Functional:</b>
                             </td>
                             <td className="color_td">
                                 <div id="manual" className="shape" />
                             </td>
                             <td className="amount_td">
-                                <b className="field_title">{allTc-selectedTc}</b>
+                                <b className="statistic_data">{allTc-selectedTc}</b>
                             </td>
                         </tr>
                         </tbody>
