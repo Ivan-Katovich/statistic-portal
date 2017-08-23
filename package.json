@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "description": "Statistic portal to get statistic information for selected suit from Microsoft test manager",
   "scripts": {
-    "start": "webpack & node server"
+    "pack": "node node_modules/webpack/bin/webpack",
+    "start": "node node_modules/webpack/bin/webpack & node server"
   },
   "devDependencies": {
     "agentkeepalive": "^3.3.0",
