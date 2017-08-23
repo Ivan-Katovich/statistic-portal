@@ -17,6 +17,7 @@ let App = React.createClass({
 
     getInitialState: function() {
         return {
+            parameter: 'Automation',
             customLoading: false,
             coveragePercentage: 0,
             allTc: 0,
@@ -28,6 +29,8 @@ let App = React.createClass({
         let _this = this;
         ee.addListener('percentage.add', function(item) {
             _this.setState({
+                // attribute: item.attribute,
+                parameter: item.parameter,
                 customLoading: item.customLoading,
                 coveragePercentage: item.coveragePercentage,
                 allTc: item.allTc,

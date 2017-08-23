@@ -32,6 +32,12 @@ const data = {
             default: 'Hurynovich,Karyna',
             values: ['Hurynovich,Karyna','Ochkina,Anastasiya','Karukhina,Elena','Khatskevich,Artsiom']
         },
+        'Created by': {
+            longName: 'Created by',
+            shortName: 'createdBy',
+            default: 'Hurynovich,Karyna',
+            values: ['Hurynovich,Karyna','Ochkina,Anastasiya','Karukhina,Elena','Khatskevich,Artsiom']
+        },
 
     }
 

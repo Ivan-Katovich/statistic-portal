@@ -6,6 +6,7 @@ export let PercentageView = React.createClass({
         let percentage = this.props.data.coveragePercentage;
         let allTc = this.props.data.allTc;
         let selectedTc = this.props.data.selectedTc;
+        let parameter = this.props.data.parameter;
         let smilePath;
         let smileClass;
         (function(){
@@ -49,7 +50,7 @@ export let PercentageView = React.createClass({
                 </div>
                 <div id="circle_board">
                     <p className="percentage_text">
-                        <strong>Coverage: {percentage}%</strong>
+                        <strong>Result: {percentage}%</strong>
                     </p>
                     <Circle
                         className="percent_circle"
@@ -79,7 +80,7 @@ export let PercentageView = React.createClass({
                         </tr>
                         <tr>
                             <td className="description_td">
-                                <b className="statistic_data">Automation:</b>
+                                <b className="statistic_data">{parameter}:</b>
                             </td>
                             <td className="color_td">
                                 <div id="auto" className="shape" />
@@ -90,7 +91,7 @@ export let PercentageView = React.createClass({
                         </tr>
                         <tr>
                             <td className="description_td">
-                                <b className="statistic_data">Functional:</b>
+                                <b className="statistic_data">Other:</b>
                             </td>
                             <td className="color_td">
                                 <div id="manual" className="shape" />

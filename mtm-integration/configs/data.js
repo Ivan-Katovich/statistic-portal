@@ -13,6 +13,7 @@ const data = {
         testType: {c:'Vertafore.TestType',t:'System.String'},
         automationStatus: {c:'Microsoft.VSTS.TCM.AutomationStatus',t:'System.String'},
         assignedTo: {c:'System.AssignedTo',t:'System.String'},
+        createdBy: {c:'System.CreatedBy',t:'System.String'},
     }
 
 };

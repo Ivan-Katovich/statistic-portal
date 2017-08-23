@@ -76,7 +76,6 @@ let InputView = React.createClass({
         e.preventDefault();
         let _this = this;
         let inputState = _this.state.suitIds || [config.frontend.defaultSuitId];
-        console.log(inputState);
         let options = {
             uri: config.frontend.baseUrl+':'+config.frontend.port+'/connector/getTcData',
             method: 'POST',
@@ -99,7 +98,6 @@ let InputView = React.createClass({
                 });
             })
             .then(function () {
-                console.log(_this.state);
                 return ee.emit('percentage.add',_this.state);
             })
             .then(function () {
@@ -129,7 +127,7 @@ let InputView = React.createClass({
 
     render: function() {
 
-        const _this = this;
+        // const _this = this;
         let attrDataArray = [];
         let attrOptions;
         let paramOptions;
@@ -145,9 +143,9 @@ let InputView = React.createClass({
         });
 
         paramOptions = tcData[this.state.attribute].values.map(function(item,index){
-            let selected = item === tcData[_this.state.attribute].default ? 'selected' : '';
+            // let selected = item === tcData[_this.state.attribute].default ? 'selected' : '';
             return (
-                <option selected={selected} key={index} value={item}>{item}</option>
+                <option key={index} value={item}>{item}</option>
             )
         });
 
@@ -178,7 +176,7 @@ let InputView = React.createClass({
                     <div className="second_dd">
                         <b className="field_title">Select parameter</b>
                         <select className="field_dropdown"
-                                // defaultValue={tcData[this.state.attribute].default}
+                                value={this.state.parameter}
                                 onChange={this.onParameterChange}>
                             {paramOptions}
                         </select>

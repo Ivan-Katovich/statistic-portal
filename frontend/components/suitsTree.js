@@ -65,7 +65,6 @@ let getAlreadyLoadedChildren = function(treeData,curKey,curId){
         data.forEach((item)=>{
             if (curKey.indexOf(item.key) === 0) {
                 if (item.children) {
-                    console.log(item);
                     if (curId === item.id) {
                         arr.push(item.children);
                     } else {
